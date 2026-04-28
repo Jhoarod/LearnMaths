@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MateMagia — Aprende Matemáticas Jugando</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="Styles.css" />
+</head>
+<body>
+
+  <!-- PARTÍCULAS -->
+  <div class="particles" id="particles"></div>
+
+  <!-- ══════════════════════════════════════
+       NAVBAR PRINCIPAL
+  ══════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+
+      <!-- LOGO -->
+      <a class="nav-logo" href="#" onclick="goHome(event)">
+        <div class="nav-logo-icon">∑</div>
+        <span class="nav-logo-text">Mate<span class="accent">Magia</span></span>
+      </a>
+
+      <!-- LINKS CENTRADOS -->
+      <ul class="nav-links" id="navLinks">
+
+        <!-- APRENDE (con dropdown) -->
+        <li class="nav-item has-dropdown" id="navAprende">
+          <button class="nav-btn" onclick="toggleDropdown('dropAprende', event)">
+            <span class="nav-icon"></span>
+            <span class="nav-label">Aprende</span>
+            <span class="nav-chevron">▾</span>
+          </button>
+          <div class="dropdown" id="dropAprende">
+            <div class="dropdown-header">¿Con cuántas cifras quieres practicar?</div>
+            <a class="drop-item" onclick="goTo('aprende',1,event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">1 Cifra</div>
+                <div class="drop-sub">Ej: 3 + 5 = ?</div>
+              </div>
+              <div class="drop-badge start">¡Empieza aquí!</div>
+            </a>
+            <a class="drop-item" onclick="goTo('aprende',2,event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">2 Cifras</div>
+                <div class="drop-sub">Ej: 24 + 37 = ?</div>
+              </div>
+              <div class="drop-badge mid">Nivel Medio</div>
+            </a>
+            <a class="drop-item" onclick="goTo('aprende',3,event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">3 Cifras</div>
+                <div class="drop-sub">Ej: 123 + 456 = ?</div>
+              </div>
+              <div class="drop-badge pro">¡Eres Pro!</div>
+            </a>
+          </div>
+        </li>
+
+        <!-- JUEGA (con dropdown) -->
+        <li class="nav-item has-dropdown" id="navJuega">
+          <button class="nav-btn" onclick="toggleDropdown('dropJuega', event)">
+            <span class="nav-icon"></span>
+            <span class="nav-label">Juega</span>
+            <span class="nav-chevron">▾</span>
+          </button>
+          <div class="dropdown" id="dropJuega">
+            <div class="dropdown-header">¡Elige tu juego favorito!</div>
+            <a class="drop-item" onclick="goTo('juego','operacion-rapida',event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">Operación Rápida</div>
+                <div class="drop-sub">Resuelve antes de que acabe el tiempo</div>
+              </div>
+            </a>
+            <a class="drop-item" onclick="goTo('juego','globos',event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">Explota Globos</div>
+                <div class="drop-sub">Revienta el globo correcto</div>
+              </div>
+            </a>
+            <a class="drop-item locked" onclick="showComingSoon(event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">Viaje Espacial</div>
+                <div class="drop-sub">Misiones matemáticas galácticas</div>
+              </div>
+              <div class="drop-badge lock"> Pronto</div>
+            </a>
+            <a class="drop-item locked" onclick="showComingSoon(event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">Chef Matemático</div>
+                <div class="drop-sub">Cocina con los números</div>
+              </div>
+              <div class="drop-badge lock"> Pronto</div>
+            </a>
+          </div>
+        </li>
+
+        <!-- COMPITE (con dropdown) -->
+        <li class="nav-item has-dropdown" id="navCompite">
+          <button class="nav-btn" onclick="toggleDropdown('dropCompite', event)">
+            <span class="nav-icon"></span>
+            <span class="nav-label">Compite</span>
+            <span class="nav-chevron">▾</span>
+          </button>
+          <div class="dropdown" id="dropCompite">
+            <div class="dropdown-header">¡Demuestra quién es el campeón!</div>
+            <a class="drop-item" onclick="goTo('compite','duelo',event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">Duelo Matemático</div>
+                <div class="drop-sub">Tú vs un amigo — el más rápido gana</div>
+              </div>
+            </a>
+            <a class="drop-item" onclick="goTo('compite','torneo',event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">Torneo en Clase</div>
+                <div class="drop-sub">Hasta 8 jugadores en simultáneo</div>
+              </div>
+            </a>
+          </div>
+        </li>
+
+        <!-- MEMORIA (con dropdown) -->
+        <li class="nav-item has-dropdown" id="navMemoria">
+          <button class="nav-btn" onclick="toggleDropdown('dropMemoria', event)">
+            <span class="nav-icon"></span>
+            <span class="nav-label">Memoria</span>
+            <span class="nav-chevron">▾</span>
+          </button>
+          <div class="dropdown" id="dropMemoria">
+            <div class="dropdown-header">¡Entrena tu mente matemática!</div>
+            <a class="drop-item" onclick="goTo('memoria','tarjetas',event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">Tarjetas Mágicas</div>
+                <div class="drop-sub">Encuentra los pares matemáticos</div>
+              </div>
+            </a>
+            <a class="drop-item" onclick="goTo('memoria','secuencia',event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">Secuencia Numérica</div>
+                <div class="drop-sub">Repite el patrón antes que desaparezca</div>
+              </div>
+            </a>
+            <a class="drop-item" onclick="goTo('memoria','flash',event)">
+              <div class="drop-icon"></div>
+              <div class="drop-info">
+                <div class="drop-title">Flash Mental</div>
+                <div class="drop-sub">Lee números ultra rápido</div>
+              </div>
+            </a>
+          </div>
+        </li>
+
+        <!-- MI PROGRESO (sin dropdown, directo) -->
+        <li class="nav-item" id="navProgreso">
+          <button class="nav-btn nav-btn-progreso" onclick="goTo('progreso','ver',event)">
+            <span class="nav-icon"></span>
+            <span class="nav-label">Mi Progreso</span>
+          </button>
+        </li>
+
+      </ul>
+
+      <!-- HAMBURGER (móvil) -->
+      <button class="hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div><!-- /navbar-inner -->
+
+    <!-- MENÚ MÓVIL -->
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-links">
+        <div class="mob-section">
+          <div class="mob-section-title"> Aprende</div>
+          <a class="mob-item" onclick="goTo('aprende',1,event)"> 1 Cifra — ¡Empieza aquí!</a>
+          <a class="mob-item" onclick="goTo('aprende',2,event)"> 2 Cifras</a>
+          <a class="mob-item" onclick="goTo('aprende',3,event)"> 3 Cifras — ¡Eres Pro!</a>
+        </div>
+        <div class="mob-section">
+          <div class="mob-section-title"> Juega</div>
+          <a class="mob-item" onclick="goTo('juego','operacion-rapida',event)"> Operación Rápida</a>
+          <a class="mob-item" onclick="goTo('juego','globos',event)"> Explota Globos</a>
+          <a class="mob-item mob-locked" onclick="showComingSoon(event)"> Viaje Espacial — Pronto</a>
+        </div>
+        <div class="mob-section">
+          <div class="mob-section-title"> Compite</div>
+          <a class="mob-item" onclick="goTo('compite','duelo',event)"> Duelo Matemático</a>
+          <a class="mob-item" onclick="goTo('compite','torneo',event)"> Torneo en Clase</a>
+        </div>
+        <div class="mob-section">
+          <div class="mob-section-title"> Memoria</div>
+          <a class="mob-item" onclick="goTo('memoria','tarjetas',event)"> Tarjetas Mágicas</a>
+          <a class="mob-item" onclick="goTo('memoria','secuencia',event)"> Secuencia Numérica</a>
+          <a class="mob-item" onclick="goTo('memoria','flash',event)"> Flash Mental</a>
+        </div>
+        <div class="mob-section">
+          <a class="mob-item mob-progress" onclick="goTo('progreso','ver',event)"> Mi Progreso</a>
+        </div>
+      </div>
+    </div>
+
+  </nav><!-- /navbar -->
+
+  <!-- ══════════════════════════════════════
+       HERO / CONTENIDO PRINCIPAL
+  ══════════════════════════════════════ -->
+  <main class="hero-section" id="heroSection">
+
+    <!-- MASCOTA -->
+    <div class="mascot-wrap">
+      <div class="mascot" id="mascot" onclick="changeMascotPhrase()">
+        <div class="mascot-body">
+          <div class="eye left-eye"><div class="pupil"></div></div>
+          <div class="eye right-eye"><div class="pupil"></div></div>
+          <div class="mascot-mouth"></div>
+        </div>
+        <div class="speech-bubble" id="mascotBubble">
+          ¡Hola! Soy <strong>Max</strong> <br>
+          <small>Elige una opción del menú y empecemos la aventura matemática</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- TÍTULO HERO -->
+    <div class="hero-text">
+      <h1 class="hero-title">
+        ¡Las Matemáticas<br>son una
+        <span class="hero-highlight">Aventura</span>!
+      </h1>
+      <p class="hero-sub">Aprende, juega y compite. ¡Tú puedes ser el campeón de los números! </p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="toggleDropdown('dropAprende', event); highlightNav('navAprende')">
+           ¡Empezar ahora!
+        </button>
+        <button class="btn-secondary" onclick="goTo('juego','operacion-rapida',event)">
+           Ir a jugar
+        </button>
+      </div>
+    </div>
+
+    <!-- STATS RÁPIDAS -->
+    <div class="quick-stats">
+      <div class="qstat">
+        <div class="qstat-val" id="qScore">0</div>
+        <div class="qstat-lbl">Puntos</div>
+      </div>
+      <div class="qstat-divider"></div>
+      <div class="qstat">
+        <div class="qstat-val" id="qLevel">1</div>
+        <div class="qstat-lbl">Nivel</div>
+      </div>
+      <div class="qstat-divider"></div>
+      <div class="qstat">
+        <div class="qstat-val" id="qStreak">0</div>
+        <div class="qstat-lbl">Racha</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- OVERLAY para cerrar dropdowns -->
+  <div class="overlay" id="overlay" onclick="closeAllDropdowns()"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
