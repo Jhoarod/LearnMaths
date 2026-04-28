@@ -1,9 +1,3 @@
-/* ============================================================
-   MateMagia — styles_v2.css
-   Navbar de navegación horizontal centrada con dropdowns
-   Paleta: Azul Profundo + Amarillo Eléctrico + Blanco
-   © Proyecto Exclusivo — Todos los derechos reservados
-   ============================================================ */
 
 :root {
   --azul:         #0D1F4E;
@@ -280,10 +274,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   white-space: nowrap;
   flex-shrink: 0;
 }
-.drop-badge.start { background: #22c55e; color: #fff; }
-.drop-badge.mid   { background: var(--azul-vivo); color: #fff; }
-.drop-badge.pro   { background: var(--amarillo); color: var(--azul); }
-.drop-badge.lock  { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+.drop-badge.start { background: #fbff00ec; color: #000000; }
+.drop-badge.mid   { background: #ff8800; color: #000000; }
+.drop-badge.pro   { background: #70f107; color: var(--azul); }
+.drop-badge.lock  { background: rgba(248, 122, 3, 0.897); color: rgba(255,255,255,0.5); }
 
 /* ── HAMBURGER (móvil) ── */
 .hamburger {
