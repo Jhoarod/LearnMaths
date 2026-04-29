@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="Styles.css" />
+  <title>MateMagia — Compite</title>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a class="nav-logo" href="#" id="navLogo">
+        <div class="nav-logo-icon">&#8721;</div>
+        <span class="nav-logo-text">Mate<span class="accent">Magia</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li class="nav-item has-dropdown" id="navAprende">
+          <button class="nav-btn" id="btnAprende">
+            <span class="nav-label">Aprende</span>
+            <span class="nav-chevron">&#9662;</span>
+          </button>
+          <div class="dropdown" id="dropAprende">
+            <div class="dropdown-header">Con cuantas cifras quieres practicar?</div>
+            <a class="drop-item" data-modulo="aprende" data-sub="1">
+              <div class="drop-info"><div class="drop-title">1 Cifra</div><div class="drop-sub">Ej: 3 + 5 = ?</div></div>
+              <div class="drop-badge start">Empieza aqui</div>
+            </a>
+            <a class="drop-item" data-modulo="aprende" data-sub="2">
+              <div class="drop-info"><div class="drop-title">2 Cifras</div><div class="drop-sub">Ej: 24 + 37 = ?</div></div>
+              <div class="drop-badge mid">Nivel Medio</div>
+            </a>
+            <a class="drop-item" data-modulo="aprende" data-sub="3">
+              <div class="drop-info"><div class="drop-title">3 Cifras</div><div class="drop-sub">Ej: 123 + 456 = ?</div></div>
+              <div class="drop-badge pro">Eres Pro</div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item has-dropdown" id="navJuega">
+          <button class="nav-btn" id="btnJuega">
+            <span class="nav-label">Juega</span>
+            <span class="nav-chevron">&#9662;</span>
+          </button>
+          <div class="dropdown" id="dropJuega">
+            <div class="dropdown-header">Elige tu juego favorito!</div>
+            <a class="drop-item" data-modulo="juego" data-sub="operacion-rapida">
+              <div class="drop-info"><div class="drop-title">Operacion Rapida</div><div class="drop-sub">Resuelve antes de que acabe el tiempo</div></div>
+            </a>
+            <a class="drop-item" data-modulo="juego" data-sub="globos">
+              <div class="drop-info"><div class="drop-title">Explota Globos</div><div class="drop-sub">Revienta el globo correcto</div></div>
+            </a>
+            <a class="drop-item locked" data-coming="true">
+              <div class="drop-info"><div class="drop-title">Viaje Espacial</div><div class="drop-sub">Misiones matematicas galacticas</div></div>
+              <div class="drop-badge lock">Pronto</div>
+            </a>
+            <a class="drop-item locked" data-coming="true">
+              <div class="drop-info"><div class="drop-title">Chef Matematico</div><div class="drop-sub">Cocina con los numeros</div></div>
+              <div class="drop-badge lock">Pronto</div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item has-dropdown" id="navCompite">
+          <button class="nav-btn" id="btnCompite">
+            <span class="nav-label">Compite</span>
+            <span class="nav-chevron">&#9662;</span>
+          </button>
+          <div class="dropdown" id="dropCompite">
+            <div class="dropdown-header">Demuestra quien es el campeon!</div>
+            <a class="drop-item" data-modulo="compite" data-sub="duelo">
+              <div class="drop-info"><div class="drop-title">Duelo Matematico</div><div class="drop-sub">Tu vs un amigo — el mas rapido gana</div></div>
+            </a>
+            <a class="drop-item" data-modulo="compite" data-sub="torneo">
+              <div class="drop-info"><div class="drop-title">Torneo en Clase</div><div class="drop-sub">Hasta 8 jugadores en simultaneo</div></div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item has-dropdown" id="navMemoria">
+          <button class="nav-btn" id="btnMemoria">
+            <span class="nav-label">Memoria</span>
+            <span class="nav-chevron">&#9662;</span>
+          </button>
+          <div class="dropdown" id="dropMemoria">
+            <div class="dropdown-header">Entrena tu mente matematica!</div>
+            <a class="drop-item" data-modulo="memoria" data-sub="tarjetas">
+              <div class="drop-info"><div class="drop-title">Tarjetas Magicas</div><div class="drop-sub">Encuentra los pares matematicos</div></div>
+            </a>
+            <a class="drop-item" data-modulo="memoria" data-sub="secuencia">
+              <div class="drop-info"><div class="drop-title">Secuencia Numerica</div><div class="drop-sub">Repite el patron antes que desaparezca</div></div>
+            </a>
+            <a class="drop-item" data-modulo="memoria" data-sub="flash">
+              <div class="drop-info"><div class="drop-title">Flash Mental</div><div class="drop-sub">Lee numeros ultra rapido</div></div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item" id="navProgreso">
+          <button class="nav-btn nav-btn-progreso" id="btnProgreso" data-modulo="progreso" data-sub="ver">
+            <span class="nav-label">Mi Progreso</span>
+          </button>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-links">
+        <div class="mob-section">
+          <div class="mob-section-title">Aprende</div>
+          <a class="mob-item" data-modulo="aprende" data-sub="1">1 Cifra</a>
+          <a class="mob-item" data-modulo="aprende" data-sub="2">2 Cifras</a>
+          <a class="mob-item" data-modulo="aprende" data-sub="3">3 Cifras</a>
+        </div>
+        <div class="mob-section">
+          <div class="mob-section-title">Juega</div>
+          <a class="mob-item" data-modulo="juego" data-sub="operacion-rapida">Operacion Rapida</a>
+          <a class="mob-item" data-modulo="juego" data-sub="globos">Explota Globos</a>
+          <a class="mob-item mob-locked" data-coming="true">Viaje Espacial — Pronto</a>
+        </div>
+        <div class="mob-section">
+          <div class="mob-section-title">Compite</div>
+          <a class="mob-item" data-modulo="compite" data-sub="duelo">Duelo Matematico</a>
+          <a class="mob-item" data-modulo="compite" data-sub="torneo">Torneo en Clase</a>
+        </div>
+        <div class="mob-section">
+          <div class="mob-section-title">Memoria</div>
+          <a class="mob-item" data-modulo="memoria" data-sub="tarjetas">Tarjetas Magicas</a>
+          <a class="mob-item" data-modulo="memoria" data-sub="secuencia">Secuencia Numerica</a>
+          <a class="mob-item" data-modulo="memoria" data-sub="flash">Flash Mental</a>
+        </div>
+        <div class="mob-section">
+          <a class="mob-item mob-progress" data-modulo="progreso" data-sub="ver">Mi Progreso</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main class="page-main" id="pageMain">
+    <div class="page-header">
+      <a class="btn-back" id="btnBack">Volver al inicio</a>
+      <h1 class="page-title" id="pageTitle">Compite</h1>
+      <p class="page-desc" id="pageDesc">Demuestra quien es el campeon de las matematicas.</p>
+    </div>
+    <section class="page-content" id="pageContent">
+      <!-- Contenido del modulo Compite se inyecta aqui -->
+    </section>
+  </main>
+  <div class="toast" id="toast"></div>
+  <div class="overlay" id="overlay"></div>
+  <script src="app.js"></script>
+</body>
+</html>

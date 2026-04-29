@@ -1,19 +1,18 @@
-
 'use strict';
 
 const MateMagia = {
-  version: '3.0',
+  version: '4.0',
   activeDropdown: null,
   mobileOpen: false,
   player: { score: 0, level: 1, streak: 0, xp: 0 },
 
   mascotPhrases: [
-    '¡Hola! Soy <strong>Max</strong> <br><small>Elige una opción y empecemos</small>',
-    '¡Tú puedes con las matemáticas! <br><small>¡Cada día aprendes más!</small>',
-    '¿Sabías que los números<br>están en todas partes? ',
-    '¡Practica y serás<br>el más rápido! ',
-    '¡Los errores nos hacen<br>más inteligentes! ',
-    '¡Vamos, campeón!<br>¡Tú puedes! ',
+    '¡Hola! Soy <strong>Max</strong><br><small>Elige una opción y empecemos</small>',
+    '¡Tú puedes con las matemáticas!<br><small>¡Cada día aprendes más!</small>',
+    '¿Sabías que los números<br>están en todas partes?',
+    '¡Practica y serás<br>el más rápido!',
+    '¡Los errores nos hacen<br>más inteligentes!',
+    '¡Vamos, campeón!<br>¡Tú puedes!',
   ],
 
   navMap: {
@@ -21,6 +20,31 @@ const MateMagia = {
     btnJuega:   'dropJuega',
     btnCompite: 'dropCompite',
     btnMemoria: 'dropMemoria',
+  },
+
+  // Rutas por modulo y sub
+  routes: {
+    aprende:  {
+      1: 'aprende.html?cifras=1',
+      2: 'aprende.html?cifras=2',
+      3: 'aprende.html?cifras=3',
+    },
+    juego: {
+      'operacion-rapida': 'juega.html?modo=operacion-rapida',
+      globos:             'juega.html?modo=globos',
+    },
+    compite: {
+      duelo:  'compite.html?modo=duelo',
+      torneo: 'compite.html?modo=torneo',
+    },
+    memoria: {
+      tarjetas:  'memoria.html?modo=tarjetas',
+      secuencia: 'memoria.html?modo=secuencia',
+      flash:     'memoria.html?modo=flash',
+    },
+    progreso: {
+      ver: 'progreso.html',
+    },
   },
 };
 
@@ -37,33 +61,26 @@ document.addEventListener('DOMContentLoaded', () => {
 // ── BIND CENTRALIZADO DE EVENTOS ────────────────────────────
 function bindEvents() {
 
-  // Logo → ir al inicio
   document.getElementById('navLogo')
     ?.addEventListener('click', (e) => { e.preventDefault(); goHome(); });
 
-  // Botones del navbar con dropdown
   Object.entries(MateMagia.navMap).forEach(([btnId, dropId]) => {
     document.getElementById(btnId)
       ?.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(dropId); });
   });
 
-  // Botón Mi Progreso (sin dropdown)
   document.getElementById('btnProgreso')
     ?.addEventListener('click', (e) => { e.stopPropagation(); goTo('progreso', 'ver'); });
 
-  // Hamburger
   document.getElementById('hamburger')
     ?.addEventListener('click', (e) => { e.stopPropagation(); toggleMobile(); });
 
-  // Overlay → cerrar dropdowns
   document.getElementById('overlay')
     ?.addEventListener('click', closeAllDropdowns);
 
-  // Mascota → cambiar frase al hacer clic
   document.getElementById('mascot')
     ?.addEventListener('click', changeMascotPhrase);
 
-  // Botones hero
   document.getElementById('btnEmpezar')
     ?.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -74,24 +91,19 @@ function bindEvents() {
   document.getElementById('btnJugarDirecto')
     ?.addEventListener('click', (e) => { e.stopPropagation(); goTo('juego', 'operacion-rapida'); });
 
-  // Drop-items con data-modulo/data-sub (desktop + móvil)
   document.querySelectorAll('.drop-item[data-modulo], .mob-item[data-modulo]')
     .forEach(el => {
       el.addEventListener('click', (e) => {
         e.stopPropagation();
-        const modulo = el.dataset.modulo;
-        const sub    = el.dataset.sub;
-        goTo(modulo, sub);
+        goTo(el.dataset.modulo, el.dataset.sub);
       });
     });
 
-  // Items bloqueados / coming soon
   document.querySelectorAll('[data-coming="true"]')
     .forEach(el => {
       el.addEventListener('click', (e) => { e.stopPropagation(); showComingSoon(); });
     });
 
-  // Cerrar dropdowns al hacer clic fuera del navbar
   document.addEventListener('click', (e) => {
     const nav = document.getElementById('navbar');
     if (nav && !nav.contains(e.target)) {
@@ -100,18 +112,17 @@ function bindEvents() {
     }
   });
 
-  // Tecla ESC → cerrar todo
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { closeAllDropdowns(); closeMobile(); }
   });
 }
 
-// ── PARTÍCULAS ──────────────────────────────────────────────
+// ── PARTICULAS ──────────────────────────────────────────────
 function createParticles() {
   const container = document.getElementById('particles');
   if (!container) return;
 
-  const syms   = ['✕','○','△','+','−','×','÷','=','∑','√','∞','%'];
+  const syms   = ['+', '-', 'x', '÷', '=', '%', '?'];
   const colors = ['#FFD600','#2C5FD4','#4AE8C4','#E84A7F','#E8A14A','#A14AE8'];
   const count  = window.innerWidth < 600 ? 16 : 30;
 
@@ -150,8 +161,8 @@ function toggleDropdown(dropId) {
   const drop = document.getElementById(dropId);
   if (!drop) return;
 
-  const item   = drop.closest('.nav-item');
-  const isOpen = item.classList.contains('open');
+  const item    = drop.closest('.nav-item');
+  const isOpen  = item.classList.contains('open');
   const overlay = document.getElementById('overlay');
 
   closeAllDropdowns();
@@ -175,7 +186,7 @@ function highlightNav(navId) {
   document.getElementById(navId)?.classList.add('active');
 }
 
-// ── HAMBURGER / MÓVIL ────────────────────────────────────────
+// ── HAMBURGER / MOVIL ────────────────────────────────────────
 function toggleMobile() {
   MateMagia.mobileOpen ? closeMobile() : openMobile();
 }
@@ -192,33 +203,28 @@ function closeMobile() {
   document.getElementById('hamburger')?.classList.remove('open');
 }
 
-// ── NAVEGACIÓN ───────────────────────────────────────────────
+// ── NAVEGACION ───────────────────────────────────────────────
 function goTo(modulo, sub) {
   closeAllDropdowns();
   if (MateMagia.mobileOpen) closeMobile();
 
-  const labels = {
-    aprende: { 1:' ¡Vamos a aprender con 1 cifra!', 2:' ¡2 cifras, tú puedes!', 3:' ¡3 cifras, eres un PRO!' },
-    juego:   { 'operacion-rapida':' ¡Cargando Operación Rápida!', globos:' ¡Preparando los globos!' },
-    compite: { duelo:' ¡Cargando Duelo Matemático!', torneo:' ¡Cargando Torneo!' },
-    memoria: { tarjetas:' ¡Barajando Tarjetas Mágicas!', secuencia:' ¡Cargando Secuencia!', flash:' ¡Flash Mental activado!' },
-    progreso:{ ver:' ¡Cargando tu progreso!' },
-  };
+  const ruta = MateMagia.routes[modulo]?.[sub];
 
-  const msg = labels[modulo]?.[sub] ?? ' ¡Cargando módulo!';
-  showToast(msg);
-
-  console.log(`[MateMagia v${MateMagia.version}] → ${modulo}/${sub}`);
+  if (ruta) {
+    window.location.href = ruta;
+  } else {
+    showToast('Esta seccion no esta disponible aun.');
+  }
 }
 
 function goHome() {
   closeAllDropdowns();
   closeMobile();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.location.href = 'index.html';
 }
 
 function showComingSoon() {
-  showToast(' ¡Este juego llega muy pronto! Sigue practicando...');
+  showToast('Este juego llega muy pronto. Sigue practicando.');
 }
 
 // ── MASCOTA ──────────────────────────────────────────────────
@@ -246,7 +252,7 @@ function changeMascotPhrase() {
   bubble.style.animation = 'bubblePop 0.45s cubic-bezier(0.34,1.56,0.64,1) both';
 }
 
-// ── ESTADÍSTICAS ─────────────────────────────────────────────
+// ── ESTADISTICAS ─────────────────────────────────────────────
 function loadPlayer() {
   try {
     const saved = localStorage.getItem('matemagia_player');
@@ -290,4 +296,72 @@ function showToast(msg, ms = 2800) {
   _toastTimer = setTimeout(() => el.classList.remove('show'), ms);
 }
 
-console.log(`%cMateMagia v${MateMagia.version} ✓`, 'color:#FFD600;font-weight:bold;font-size:14px;');
+console.log(`%cMateMagia v${MateMagia.version}`, 'color:#FFD600;font-weight:bold;font-size:14px;');
+
+// ── LOGICA DE PAGINAS INTERNAS ────────────────────────────────
+// Se ejecuta en aprende.html, juega.html, compite.html, memoria.html, progreso.html
+(function initPageContext() {
+  const params  = new URLSearchParams(window.location.search);
+  const cifras  = params.get('cifras');
+  const modo    = params.get('modo');
+
+  const titleEl = document.getElementById('pageTitle');
+  const descEl  = document.getElementById('pageDesc');
+  const btnBack = document.getElementById('btnBack');
+
+  if (btnBack) {
+    btnBack.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = 'index.html';
+    });
+  }
+
+  // Contexto segun pagina actual
+  const page = window.location.pathname.split('/').pop();
+
+  if (page === 'aprende.html' && cifras && titleEl && descEl) {
+    const info = {
+      1: { title: 'Aprende con 1 Cifra', desc: 'Suma, resta, multiplica y divide con numeros del 1 al 9. El nivel perfecto para comenzar.' },
+      2: { title: 'Aprende con 2 Cifras', desc: 'Operaciones con numeros del 10 al 99. Ya vas dominando las matematicas.' },
+      3: { title: 'Aprende con 3 Cifras', desc: 'Operaciones con numeros del 100 al 999. Eres todo un profesional.' },
+    };
+    if (info[cifras]) {
+      titleEl.textContent = info[cifras].title;
+      descEl.textContent  = info[cifras].desc;
+    }
+  }
+
+  if (page === 'juega.html' && modo && titleEl && descEl) {
+    const info = {
+      'operacion-rapida': { title: 'Operacion Rapida', desc: 'Resuelve la mayor cantidad de operaciones antes de que se acabe el tiempo.' },
+      'globos':           { title: 'Explota Globos',   desc: 'Revienta el globo que tenga la respuesta correcta. Rapido, que se escapan.' },
+    };
+    if (info[modo]) {
+      titleEl.textContent = info[modo].title;
+      descEl.textContent  = info[modo].desc;
+    }
+  }
+
+  if (page === 'compite.html' && modo && titleEl && descEl) {
+    const info = {
+      'duelo':  { title: 'Duelo Matematico', desc: 'Tu contra un amigo. El que responda mas rapido gana.' },
+      'torneo': { title: 'Torneo en Clase',  desc: 'Hasta 8 jugadores compitiendo al mismo tiempo. Solo uno puede ser el campeon.' },
+    };
+    if (info[modo]) {
+      titleEl.textContent = info[modo].title;
+      descEl.textContent  = info[modo].desc;
+    }
+  }
+
+  if (page === 'memoria.html' && modo && titleEl && descEl) {
+    const info = {
+      'tarjetas':  { title: 'Tarjetas Magicas',    desc: 'Encuentra las parejas de operaciones y resultados antes que tu rival.' },
+      'secuencia': { title: 'Secuencia Numerica',  desc: 'Memoriza la secuencia de numeros y repitela correctamente.' },
+      'flash':     { title: 'Flash Mental',         desc: 'Numeros que aparecen y desaparecen. Que tan rapida es tu mente?' },
+    };
+    if (info[modo]) {
+      titleEl.textContent = info[modo].title;
+      descEl.textContent  = info[modo].desc;
+    }
+  }
+})();
