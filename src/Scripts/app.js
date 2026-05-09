@@ -25,9 +25,9 @@ const MateMagia = {
   // Rutas por modulo y sub
   routes: {
     aprende:  {
-      1: 'aprende.html?cifras=1',
-      2: 'aprende.html?cifras=2',
-      3: 'aprende.html?cifras=3',
+      1: 'views/aprende.html?cifras=1',
+      2: 'views/aprende.html?cifras=2',
+      3: 'views/aprende.html?cifras=3',
     },
     juego: {
       'operacion-rapida': 'juega.html?modo=operacion-rapida',
@@ -43,7 +43,7 @@ const MateMagia = {
       flash:     'memoria.html?modo=flash',
     },
     progreso: {
-      ver: 'progreso.html',
+      ver: 'viewsprogreso.html',
     },
   },
 };
@@ -220,7 +220,8 @@ function goTo(modulo, sub) {
 function goHome() {
   closeAllDropdowns();
   closeMobile();
-  window.location.href = 'index.html';
+  const enVista = window.location.pathname.includes('/views/');
+  window.location.href = enVista ? '../index.html' : 'index.html';
 }
 
 function showComingSoon() {
