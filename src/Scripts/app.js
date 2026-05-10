@@ -1,18 +1,18 @@
 'use strict';
 
 const MateMagia = {
-  version: '4.0',
+  version: '5.0',
   activeDropdown: null,
   mobileOpen: false,
   player: { score: 0, level: 1, streak: 0, xp: 0 },
 
   mascotPhrases: [
-    '¡Hola! Soy <strong>Max</strong><br><small>Elige una opción y empecemos</small>',
-    '¡Tú puedes con las matemáticas!<br><small>¡Cada día aprendes más!</small>',
-    '¿Sabías que los números<br>están en todas partes?',
-    '¡Practica y serás<br>el más rápido!',
-    '¡Los errores nos hacen<br>más inteligentes!',
-    '¡Vamos, campeón!<br>¡Tú puedes!',
+    '¡Hola! Soy <strong>Max</strong><br><small>Elige una opcion y empecemos</small>',
+    '¡Tu puedes con las matematicas!<br><small>¡Cada dia aprendes mas!</small>',
+    '¿Sabias que multiplicar es<br>sumar rapido?',
+    '¡Practica y seras<br>el mas rapido!',
+    '¡Los errores nos hacen<br>mas inteligentes!',
+    '¡Vamos, campeon!<br>¡Tu puedes!',
   ],
 
   navMap: {
@@ -22,17 +22,9 @@ const MateMagia = {
     btnMemoria: 'dropMemoria',
   },
 
-  // ── RUTAS ──────────────────────────────────────────────────
-  // app.js vive en src/Scripts/
-  // index.html vive en src/
-  // las vistas viven en src/views/
-  //
-  // Desde index.html  → views/aprende.html   (relativo a src/)
-  // Desde views/*.html → ../index.html       (sube un nivel)
-  //
-  // La funcion goTo detecta si estamos en una vista o en el index
-  // para construir la ruta correcta automaticamente.
-
+  // ── RUTAS ─────────────────────────────────────────────────
+  // Desde src/index.html  → views/xxx.html
+  // Desde src/views/*.html → el mismo directorio (sin prefijo views/)
   routes: {
     aprende: {
       1: 'views/aprende.html?cifras=1',
@@ -69,12 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initPageContext();
 });
 
-// ── DETECTAR SI ESTAMOS EN UNA VISTA ─────────────────────────
+// ── DETECTAR VISTA INTERNA ────────────────────────────────────
 function enVista() {
   return window.location.pathname.includes('/views/');
 }
 
-// ── BIND CENTRALIZADO DE EVENTOS ────────────────────────────
+// ── BIND DE EVENTOS ──────────────────────────────────────────
 function bindEvents() {
 
   document.getElementById('navLogo')
@@ -141,7 +133,7 @@ function createParticles() {
   const container = document.getElementById('particles');
   if (!container) return;
 
-  const syms   = ['+', '-', 'x', '÷', '=', '%', '?'];
+  const syms   = ['x', '+', '-', '÷', '=', '%', '?'];
   const colors = ['#FFD600','#2C5FD4','#4AE8C4','#E84A7F','#E8A14A','#A14AE8'];
   const count  = window.innerWidth < 600 ? 16 : 30;
 
@@ -230,11 +222,8 @@ function goTo(modulo, sub) {
   let ruta = MateMagia.routes[modulo]?.[sub];
   if (!ruta) { showToast('Esta seccion no esta disponible aun.'); return; }
 
-  // Si estamos dentro de views/, las rutas del objeto apuntan
-  // a views/xxx.html que seria incorrecto — ajustamos quitando "views/"
-  if (enVista()) {
-    ruta = ruta.replace('views/', '');
-  }
+  // Desde views/ las rutas no llevan el prefijo views/
+  if (enVista()) ruta = ruta.replace('views/', '');
 
   window.location.href = ruta;
 }
@@ -242,7 +231,6 @@ function goTo(modulo, sub) {
 function goHome() {
   closeAllDropdowns();
   closeMobile();
-  // Desde views/ subimos un nivel; desde src/ vamos directo
   window.location.href = enVista() ? '../index.html' : 'index.html';
 }
 
@@ -320,36 +308,34 @@ function showToast(msg, ms = 2800) {
 }
 
 // ── CONTEXTO DE PAGINAS INTERNAS ─────────────────────────────
-// Lee los parametros ?cifras= o ?modo= de la URL
-// y actualiza titulo y descripcion de cada vista
 function initPageContext() {
   if (!enVista()) return;
 
-  const params   = new URLSearchParams(window.location.search);
-  const cifras   = params.get('cifras');
-  const modo     = params.get('modo');
-  const page     = window.location.pathname.split('/').pop();
-  const titleEl  = document.getElementById('pageTitle');
-  const descEl   = document.getElementById('pageDesc');
+  const params  = new URLSearchParams(window.location.search);
+  const cifras  = params.get('cifras');
+  const modo    = params.get('modo');
+  const page    = window.location.pathname.split('/').pop();
+  const titleEl = document.getElementById('pageTitle');
+  const descEl  = document.getElementById('pageDesc');
 
   const contextos = {
     'aprende.html': {
-      1: { title: 'Aprende con 1 Cifra',  desc: 'Suma, resta, multiplica y divide con números del 1 al 9. El nivel perfecto para comenzar.' },
-      2: { title: 'Aprende con 2 Cifras', desc: 'Operaciones con números del 10 al 99. Ya vas dominando las matemáticas.' },
-      3: { title: 'Aprende con 3 Cifras', desc: 'Operaciones con números del 100 al 999. Eres todo un profesional.' },
+      1: { title: 'Multiplicacion con 1 Cifra', desc: 'Aprende a multiplicar numeros del 1 al 9 paso a paso.' },
+      2: { title: 'Multiplicacion con 2 Cifras', desc: 'Aprende a multiplicar numeros del 10 al 99 de forma sencilla.' },
+      3: { title: 'Multiplicacion con 3 Cifras', desc: 'Domina la multiplicacion con numeros de hasta 3 cifras.' },
     },
     'juega.html': {
-      'operacion-rapida': { title: 'Operación Rápida', desc: 'Resuelve la mayor cantidad de operaciones antes de que se acabe el tiempo.' },
-      globos:             { title: 'Explota Globos',   desc: 'Revienta el globo que tenga la respuesta correcta. Rápido, que se escapan.' },
+      'operacion-rapida': { title: 'Operacion Rapida', desc: 'Resuelve la mayor cantidad de multiplicaciones antes de que se acabe el tiempo.' },
+      globos:             { title: 'Explota Globos',   desc: 'Revienta el globo con la respuesta correcta. Rapido, que se escapan.' },
     },
     'compite.html': {
-      duelo:  { title: 'Duelo Matemático', desc: 'Tú contra un amigo. El que responda más rápido gana.' },
-      torneo: { title: 'Torneo en Clase',  desc: 'Hasta 8 jugadores compitiendo al mismo tiempo. Solo uno puede ser el campeón.' },
+      duelo:  { title: 'Duelo Matematico', desc: 'Tu contra un amigo. El que responda mas rapido gana.' },
+      torneo: { title: 'Torneo en Clase',  desc: 'Hasta 8 jugadores compitiendo al mismo tiempo.' },
     },
     'memoria.html': {
-      tarjetas:  { title: 'Tarjetas Mágicas',   desc: 'Encuentra las parejas de operaciones y resultados antes que tu rival.' },
-      secuencia: { title: 'Secuencia Numérica', desc: 'Memoriza la secuencia de números y repítela correctamente.' },
-      flash:     { title: 'Flash Mental',       desc: 'Números que aparecen y desaparecen. Qué tan rápida es tu mente?' },
+      tarjetas:  { title: 'Tarjetas Magicas',   desc: 'Encuentra las parejas de multiplicaciones y resultados.' },
+      secuencia: { title: 'Secuencia Numerica', desc: 'Memoriza la secuencia y repitela correctamente.' },
+      flash:     { title: 'Flash Mental',       desc: 'Numeros que aparecen y desaparecen. Que tan rapida es tu mente?' },
     },
   };
 

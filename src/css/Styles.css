@@ -644,7 +644,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 /* ══════════════════════════════════════
    PAGINAS INTERNAS — views/
-   src/views/aprende.html, juega.html, etc.
 ══════════════════════════════════════ */
 .page-main {
   position: relative;
@@ -657,23 +656,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   max-width: 1100px;
   margin: 0 auto;
 }
-
 .page-header { margin-bottom: 40px; }
-
-.btn-back {
-  display: inline-block;
-  color: var(--amarillo);
-  font-family: 'Nunito', sans-serif;
-  font-weight: 800;
-  font-size: 0.88rem;
-  cursor: pointer;
-  margin-bottom: 16px;
-  opacity: 0.85;
-  transition: opacity 0.2s;
-}
-.btn-back::before { content: '< '; }
-.btn-back:hover { opacity: 1; }
-
 .page-title {
   font-family: 'Fredoka One', cursive;
   font-size: clamp(1.8rem, 5vw, 3rem);
@@ -681,14 +664,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   margin-bottom: 10px;
   line-height: 1.1;
 }
-
 .page-desc {
   font-size: 1rem;
   color: rgba(255,255,255,0.65);
   font-weight: 600;
   max-width: 560px;
 }
-
 .page-content {
   width: 100%;
   min-height: 300px;
@@ -704,7 +685,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   font-size: 1.1rem;
 }
 .page-content::before { content: 'Contenido proximamente...'; }
-
 @media (max-width: 600px) {
   .page-main { padding-left: 14px; padding-right: 14px; }
   .page-content { padding: 24px; }
