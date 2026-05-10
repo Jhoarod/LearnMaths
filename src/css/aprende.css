@@ -1,0 +1,580 @@
+/* ============================================================
+   MateMagia — aprende.css
+   Estilos de la vista src/views/aprende.html
+   © Proyecto Exclusivo
+   ============================================================ */
+
+/* ── LAYOUT PRINCIPAL ── */
+.aprende-main {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  padding-top: calc(var(--nav-h) + 48px);
+  padding-bottom: 80px;
+  padding-left: 24px;
+  padding-right: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.aprende-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.btn-back {
+  display: inline-block;
+  color: var(--amarillo);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.btn-back::before { content: '< '; }
+.btn-back:hover   { opacity: 1; }
+
+.aprende-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  color: var(--blanco);
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+
+.highlight {
+  color: var(--amarillo);
+  position: relative;
+}
+
+.aprende-desc {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  font-weight: 600;
+  max-width: 520px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+
+/* ── TABS DE CIFRAS ── */
+.cifras-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cifra-tab {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  padding: 10px 28px;
+  border-radius: 40px;
+  border: 2px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.25s ease;
+}
+
+.cifra-tab:hover {
+  border-color: var(--amarillo);
+  color: var(--amarillo);
+}
+
+.cifra-tab.activo {
+  background: var(--amarillo);
+  border-color: var(--amarillo);
+  color: var(--azul);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255,214,0,0.35);
+}
+
+/* ── PANELES ── */
+.cifra-panel {
+  animation: fadeSlideIn 0.45s ease both;
+}
+
+.cifra-panel.oculto { display: none; }
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── INTRO DEL PANEL ── */
+.panel-intro {
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.09);
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+}
+
+.panel-badge {
+  display: inline-block;
+  background: var(--amarillo);
+  color: var(--azul);
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.78rem;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+.panel-badge.nivel2 { background: #ff8800; color: #fff; }
+.panel-badge.nivel3 { background: #70f107; color: var(--azul); }
+
+.panel-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: var(--blanco);
+  margin-bottom: 12px;
+}
+
+.panel-texto {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.75;
+  font-weight: 600;
+}
+.panel-texto strong { color: var(--amarillo); }
+
+/* ── CAJA DE ANIMACION ── */
+.anim-box {
+  background: linear-gradient(135deg, rgba(44,95,212,0.15), rgba(13,31,78,0.4));
+  border: 1.5px solid rgba(255,214,0,0.2);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.anim-titulo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.anim-op {
+  color: var(--amarillo);
+  font-size: 1.3rem;
+}
+
+/* Stage animacion 1 cifra — grupos de puntos */
+.anim-stage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  min-height: 100px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.grupo-puntos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.grupo-puntos.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.grupo-label {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.puntos-fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  max-width: 120px;
+}
+
+.punto {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--amarillo);
+  box-shadow: 0 0 8px rgba(255,214,0,0.5);
+  animation: puntoPop 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes puntoPop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.anim-resultado {
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeSlideIn 0.5s ease both;
+}
+
+.res-igual {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2rem;
+  color: rgba(255,255,255,0.5);
+  margin-right: 12px;
+}
+
+.res-num {
+  font-family: 'Fredoka One', cursive;
+  font-size: 3rem;
+  color: var(--amarillo);
+  text-shadow: 0 0 20px rgba(255,214,0,0.4);
+}
+
+/* Stage animacion 2 y 3 cifras */
+.anim-stage-2 {
+  display: block;
+  min-height: auto;
+}
+
+.mult2-display {
+  max-width: 420px;
+  margin: 0 auto;
+  font-family: 'Fredoka One', cursive;
+}
+
+.mult2-fila {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.mult2-num {
+  font-size: 2.4rem;
+  color: var(--blanco);
+}
+
+.mult2-x {
+  font-size: 1.8rem;
+  color: var(--amarillo);
+}
+
+.mult2-linea {
+  height: 2px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  margin: 10px 0;
+  transition: opacity 0.4s;
+}
+
+.mult2-paso {
+  padding: 10px 0;
+  transition: opacity 0.5s ease;
+}
+
+.mult2-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.55);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.mult2-val {
+  font-size: 1.6rem;
+  color: var(--amarillo);
+  padding-left: 8px;
+}
+
+.mult2-total {
+  font-size: 2rem;
+  color: #70f107;
+}
+
+/* ── CONTROLES ANIMACION ── */
+.anim-controles {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.anim-btn {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.95rem;
+  padding: 10px 26px;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  background: var(--amarillo);
+  color: var(--azul);
+  transition: transform 0.2s ease, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(255,214,0,0.3);
+}
+.anim-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255,214,0,0.4);
+}
+.anim-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.anim-btn-sec {
+  background: transparent;
+  color: var(--blanco);
+  border: 2px solid rgba(255,255,255,0.25);
+  box-shadow: none;
+}
+.anim-btn-sec:hover {
+  border-color: var(--amarillo);
+  color: var(--amarillo);
+  box-shadow: none;
+}
+
+/* ── PASOS BOX ── */
+.pasos-box {
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.pasos-titulo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem;
+  color: var(--blanco);
+  margin-bottom: 24px;
+}
+
+.pasos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.pasos-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.paso {
+  background: rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.paso-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--amarillo);
+  color: var(--azul);
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+
+.paso-texto {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.6;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.paso-texto strong { color: var(--amarillo); }
+
+.paso-ejemplo { display: flex; justify-content: center; }
+
+/* Ejemplos verticales tipo pizarra */
+.ejemplo-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 12px 20px;
+  min-width: 80px;
+}
+
+.ev-num {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.4rem;
+  color: var(--blanco);
+}
+
+.ev-op {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  color: var(--amarillo);
+  align-self: flex-start;
+}
+
+.ev-linea {
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 2px;
+  margin: 4px 0;
+}
+
+.ev-res {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.6rem;
+  color: var(--amarillo);
+}
+
+.ev-marcado {
+  background: rgba(255,214,0,0.2);
+  border-radius: 6px;
+  padding: 0 6px;
+  color: var(--amarillo);
+}
+
+.resultado-check {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem;
+  color: var(--blanco);
+  background: rgba(112,241,7,0.12);
+  border: 1.5px solid rgba(112,241,7,0.3);
+  border-radius: 10px;
+  padding: 10px 18px;
+}
+.resultado-check strong { color: #70f107; }
+
+/* Suma final en paso 4 */
+.suma-final {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem;
+  color: var(--blanco);
+}
+.suma-final strong { color: #70f107; font-size: 1.5rem; }
+
+/* ── TABLA DE CEROS (nivel 3) ── */
+.ceros-tabla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.cero-item {
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.cero-label {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  color: var(--amarillo);
+  margin-bottom: 6px;
+}
+
+.cero-val {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.55);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cero-ej {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.95rem;
+  color: var(--blanco);
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.cero-ej strong { color: var(--amarillo); }
+
+/* ── TIP BOX ── */
+.tip-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: rgba(255,214,0,0.07);
+  border: 1.5px solid rgba(255,214,0,0.2);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 28px;
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.6;
+  font-weight: 600;
+}
+.tip-box strong { color: var(--amarillo); }
+
+.tip-icono {
+  font-family: 'Fredoka One', cursive;
+  background: var(--amarillo);
+  color: var(--azul);
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── ZONA PRONTO ── */
+.juego-pronto {
+  text-align: center;
+  padding: 40px 24px;
+  border: 1.5px dashed rgba(255,255,255,0.12);
+  border-radius: 20px;
+  margin-top: 12px;
+}
+
+.pronto-label {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+}
+
+.pronto-sub {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.25);
+  font-weight: 600;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .aprende-main { padding-left: 14px; padding-right: 14px; }
+  .panel-intro  { padding: 20px 18px; }
+  .anim-box     { padding: 18px; }
+  .pasos-box    { padding: 18px; }
+  .pasos-grid   { grid-template-columns: 1fr 1fr; }
+  .mult2-num    { font-size: 1.8rem; }
+  .res-num      { font-size: 2.2rem; }
+}
+
+@media (max-width: 420px) {
+  .pasos-grid, .pasos-grid-2 { grid-template-columns: 1fr; }
+  .ceros-tabla { grid-template-columns: 1fr; }
+}
