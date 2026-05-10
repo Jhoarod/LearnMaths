@@ -643,7 +643,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 
 /* ══════════════════════════════════════
-   PAGINAS INTERNAS (aprende, juega, etc.)
+   PAGINAS INTERNAS — views/
+   src/views/aprende.html, juega.html, etc.
 ══════════════════════════════════════ */
 .page-main {
   position: relative;
@@ -657,9 +658,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   margin: 0 auto;
 }
 
-.page-header {
-  margin-bottom: 40px;
-}
+.page-header { margin-bottom: 40px; }
 
 .btn-back {
   display: inline-block;
@@ -671,7 +670,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   margin-bottom: 16px;
   opacity: 0.85;
   transition: opacity 0.2s;
-  letter-spacing: 0.3px;
 }
 .btn-back::before { content: '< '; }
 .btn-back:hover { opacity: 1; }
@@ -701,15 +699,11 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.3);
   font-family: 'Fredoka One', cursive;
-  font-size: 1.2rem;
-  letter-spacing: 0.5px;
+  font-size: 1.1rem;
 }
-
-.page-content::before {
-  content: 'Contenido proximamente...';
-}
+.page-content::before { content: 'Contenido proximamente...'; }
 
 @media (max-width: 600px) {
   .page-main { padding-left: 14px; padding-right: 14px; }
