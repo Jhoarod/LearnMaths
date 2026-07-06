@@ -1,0 +1,389 @@
+/* ============================================================
+   MateMagia — progreso.css
+   Tabla de progreso gestionada por el profesor
+   © Proyecto Exclusivo
+   ============================================================ */
+
+.progreso-main {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  padding-top: calc(var(--nav-h) + 40px);
+  padding-bottom: 60px;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.progreso-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.btn-back {
+  display: inline-block;
+  color: var(--amarillo);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  margin-bottom: 16px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.btn-back::before { content: '< '; }
+.btn-back:hover   { opacity: 1; }
+
+.progreso-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--blanco);
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.highlight { color: var(--amarillo); }
+
+.progreso-desc {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 600;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ── PANEL PROFESOR ── */
+.panel-profesor {
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.09);
+  border-radius: 24px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.panel-prof-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.panel-prof-titulo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.3rem;
+  color: var(--amarillo);
+}
+
+.btn-lock {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 7px 18px;
+  border-radius: 40px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.6);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-lock:hover {
+  border-color: var(--amarillo);
+  color: var(--amarillo);
+}
+
+/* ── AGREGAR ZONA ── */
+.agregar-zona {
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 20px 22px;
+}
+
+.agregar-label {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 12px;
+}
+
+.agregar-fila {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.input-nombre {
+  flex: 1;
+  min-width: 200px;
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.14);
+  border-radius: 40px;
+  padding: 11px 20px;
+  color: var(--blanco);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.input-nombre:focus {
+  border-color: var(--amarillo);
+}
+.input-nombre::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+.btn-agregar {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.95rem;
+  padding: 11px 28px;
+  border-radius: 40px;
+  border: none;
+  background: var(--amarillo);
+  color: var(--azul);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(255,214,0,0.3);
+  white-space: nowrap;
+}
+.btn-agregar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255,214,0,0.4);
+}
+
+/* ── TABLA ── */
+.tabla-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1.5px solid rgba(255,255,255,0.08);
+}
+
+.tabla-progreso {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Nunito', sans-serif;
+  min-width: 560px;
+}
+
+.tabla-progreso th {
+  background: rgba(255,255,255,0.05);
+  color: var(--amarillo);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.th-pos      { width: 50px;  text-align: center; }
+.th-estrellas{ width: 130px; }
+.th-partidas { width: 90px;  text-align: center; }
+.th-mejor    { width: 110px; text-align: center; }
+.th-acciones { width: 90px;  text-align: center; }
+
+.tabla-progreso td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
+  vertical-align: middle;
+  transition: background 0.15s;
+}
+
+.tabla-progreso tbody tr:hover td {
+  background: rgba(255,255,255,0.04);
+}
+
+.tabla-progreso tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Columna posicion */
+.td-pos {
+  text-align: center;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+}
+
+.medalla-1 { color: #FFD600; }
+.medalla-2 { color: #C0C0C0; }
+.medalla-3 { color: #CD7F32; }
+.medalla-n { color: rgba(255,255,255,0.35); font-size: 0.85rem; }
+
+/* Columna nombre */
+.td-nombre {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.05rem;
+  color: var(--blanco);
+}
+
+/* Columna estrellas */
+.td-estrellas { font-size: 1rem; letter-spacing: 1px; }
+.estrella-on  { color: var(--amarillo); }
+.estrella-off { color: rgba(255,255,255,0.2); }
+
+/* Columna partidas */
+.td-partidas { text-align: center; }
+
+/* Columna mejor tiempo */
+.td-mejor { text-align: center; color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+
+/* Columna acciones */
+.td-acciones { text-align: center; }
+
+.btn-eliminar {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(255,68,68,0.3);
+  color: rgba(255,68,68,0.7);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-eliminar:hover {
+  background: rgba(255,68,68,0.12);
+  border-color: #ff4444;
+  color: #ff4444;
+}
+
+/* Tabla vacia */
+.tabla-vacia {
+  display: none;
+  text-align: center;
+  padding: 48px 24px;
+  color: rgba(255,255,255,0.28);
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1rem;
+}
+
+.tabla-vacia.visible { display: block; }
+
+/* ── FOOTER DEL PANEL ── */
+.panel-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 18px;
+}
+
+.btn-danger {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.88rem;
+  padding: 9px 22px;
+  border-radius: 40px;
+  border: 1.5px solid rgba(255,68,68,0.3);
+  color: rgba(255,68,68,0.7);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-danger:hover {
+  background: rgba(255,68,68,0.1);
+  border-color: #ff4444;
+  color: #ff4444;
+}
+
+.panel-footer-nota {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* ── MINI MODAL ── */
+.mini-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,31,78,0.8);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+}
+
+.mini-modal-box {
+  background: #0f2560;
+  border: 1.5px solid rgba(255,214,0,0.25);
+  border-radius: 20px;
+  padding: 32px 28px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  animation: modalPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.mini-modal-titulo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.4rem;
+  color: var(--amarillo);
+  margin-bottom: 10px;
+}
+
+.mini-modal-texto {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.mini-modal-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.ctrl-btn {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.9rem;
+  padding: 10px 24px;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ctrl-danger {
+  background: #ff4444;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(255,68,68,0.3);
+}
+.ctrl-danger:hover { transform: translateY(-2px); }
+
+.ctrl-secondary {
+  background: transparent;
+  color: var(--blanco);
+  border: 2px solid rgba(255,255,255,0.2);
+}
+.ctrl-secondary:hover {
+  border-color: var(--amarillo);
+  color: var(--amarillo);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .progreso-main  { padding-left: 12px; padding-right: 12px; }
+  .panel-profesor { padding: 18px; }
+  .agregar-fila   { flex-direction: column; }
+  .btn-agregar    { width: 100%; }
+}

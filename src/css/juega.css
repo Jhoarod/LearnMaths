@@ -1,0 +1,548 @@
+/* ============================================================
+   MateMagia — juega.css
+   Juego de cartas de multiplicacion con personajes
+   © Proyecto Exclusivo
+   ============================================================ */
+
+/* ── LAYOUT PRINCIPAL ── */
+.juega-main {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  padding-top: calc(var(--nav-h) + 32px);
+  padding-bottom: 60px;
+  padding-left: 16px;
+  padding-right: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.juega-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.btn-back {
+  display: inline-block;
+  color: var(--amarillo);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  margin-bottom: 16px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.btn-back::before { content: '< '; }
+.btn-back:hover   { opacity: 1; }
+
+.juega-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--blanco);
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.highlight { color: var(--amarillo); }
+
+.juega-desc {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.62);
+  font-weight: 600;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ══════════════════════════════════════
+   ZONA DE PERSONAJES + TABLERO
+══════════════════════════════════════ */
+.personajes-zona {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  gap: 16px;
+  align-items: start;
+}
+
+/* ── PERSONAJE ── */
+.personaje {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: calc(var(--nav-h) + 20px);
+}
+
+/* ══════════════════════════════════════
+   ESPACIO DE IMAGEN DEL PERSONAJE
+   ─────────────────────────────────────
+   COMO AGREGAR TU PERSONAJE:
+
+   Opcion A — imagen local:
+   1. Crea la carpeta: src/assets/
+   2. Copia tu imagen PNG ahi
+   3. En juega.html, dentro de .personaje-placeholder,
+      reemplaza el div por:
+      <img src="../assets/personaje1.png"
+           alt="Personaje"
+           class="personaje-img" />
+
+   Opcion B — imagen desde internet:
+      <img src="https://url-de-tu-imagen.png"
+           alt="Personaje"
+           class="personaje-img" />
+
+   La imagen debe ser PNG con fondo transparente
+   de preferencia. Tamanio recomendado: 200x300px
+   ─────────────────────────────────────
+   La clase .personaje-img ya tiene los estilos:
+══════════════════════════════════════ */
+.personaje-img {
+  width: 140px;
+  height: 200px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4));
+  animation: personajeFlota 3s ease-in-out infinite;
+}
+
+.personaje-izq .personaje-img { animation-delay: 0s; }
+.personaje-der .personaje-img { animation-delay: 1.5s; }
+
+@keyframes personajeFlota {
+  0%,100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-12px) rotate(2deg); }
+}
+
+/* Marco placeholder — se ve hasta que agregues la imagen */
+.personaje-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.placeholder-marco {
+  width: 130px;
+  height: 180px;
+  border: 2.5px dashed rgba(255,214,0,0.35);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255,214,0,0.04);
+  animation: personajeFlota 3s ease-in-out infinite;
+  cursor: default;
+}
+
+.personaje-izq .placeholder-marco { animation-delay: 0s; }
+.personaje-der .placeholder-marco { animation-delay: 1.5s; }
+
+.placeholder-icono {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.5rem;
+  color: rgba(255,214,0,0.3);
+}
+
+.placeholder-texto {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+  line-height: 1.4;
+  padding: 0 8px;
+}
+
+.placeholder-texto small {
+  color: rgba(255,214,0,0.4);
+  font-size: 0.6rem;
+  display: block;
+  margin-top: 4px;
+  word-break: break-all;
+}
+
+/* Burbuja de reaccion del personaje */
+.personaje-reaccion {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.78rem;
+  background: var(--blanco);
+  color: var(--azul);
+  padding: 8px 12px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 140px;
+  line-height: 1.4;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.personaje-izq .personaje-reaccion::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 20px;
+  border: 6px solid transparent;
+  border-bottom-color: var(--blanco);
+  border-top: none;
+}
+
+.personaje-der .personaje-reaccion::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  border: 6px solid transparent;
+  border-bottom-color: var(--blanco);
+  border-top: none;
+}
+
+.personaje-reaccion.correcto {
+  background: #70f107;
+  color: var(--azul);
+  transform: scale(1.1);
+}
+
+.personaje-reaccion.incorrecto {
+  background: #ff4444;
+  color: #fff;
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25%      { transform: translateX(-6px); }
+  75%      { transform: translateX(6px); }
+}
+
+/* ── TABLERO ZONA ── */
+.tablero-zona {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* STATS BAR */
+.juego-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.09);
+  border-radius: 50px;
+  padding: 12px 32px;
+}
+
+.jstat { text-align: center; }
+
+.jstat-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.jstat-val {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.4rem;
+  color: var(--amarillo);
+  line-height: 1;
+}
+
+/* SELECTOR DE NIVEL */
+.nivel-selector {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.nivel-btn {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.9rem;
+  padding: 8px 22px;
+  border-radius: 40px;
+  border: 2px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.65);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.nivel-btn:hover {
+  border-color: var(--amarillo);
+  color: var(--amarillo);
+}
+
+.nivel-btn.activo {
+  background: var(--amarillo);
+  border-color: var(--amarillo);
+  color: var(--azul);
+  box-shadow: 0 4px 14px rgba(255,214,0,0.35);
+}
+
+/* ── TABLERO DE CARTAS ── */
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  perspective: 1000px;
+}
+
+/* CARTA */
+.carta {
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  border-radius: 14px;
+}
+
+.carta.volteada,
+.carta.encontrada {
+  transform: rotateY(180deg);
+}
+
+.carta.encontrada { cursor: default; }
+
+.carta.encontrada .carta-frente {
+  border-color: #70f107;
+  box-shadow: 0 0 16px rgba(112,241,7,0.4);
+}
+
+.carta.incorrecta {
+  animation: cartaError 0.5s ease;
+}
+
+@keyframes cartaError {
+  0%,100% { transform: rotateY(180deg); }
+  50%      { transform: rotateY(180deg) scale(0.95); box-shadow: 0 0 20px rgba(255,68,68,0.6); }
+}
+
+/* Cara trasera */
+.carta-trasera {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--azul-mid), var(--azul-vivo));
+  border: 2px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.8rem;
+  color: rgba(255,255,255,0.15);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.carta:hover:not(.volteada):not(.encontrada) .carta-trasera {
+  border-color: rgba(255,214,0,0.4);
+  background: linear-gradient(135deg, var(--azul-mid), #3a6fd4);
+}
+
+.carta-trasera-simbolo {
+  font-size: 2rem;
+  opacity: 0.2;
+}
+
+/* Cara frontal */
+.carta-frente {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0f2560, #1a3a8f);
+  border: 2px solid rgba(255,214,0,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+}
+
+.carta-tipo {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.4);
+}
+
+.carta-contenido {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+  color: var(--amarillo);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.carta-contenido.es-resultado {
+  color: #70f107;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+}
+
+/* ── CONTROLES ── */
+.juego-controles {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctrl-btn {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.95rem;
+  padding: 11px 28px;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s;
+}
+
+.ctrl-primary {
+  background: var(--amarillo);
+  color: var(--azul);
+  box-shadow: 0 4px 16px rgba(255,214,0,0.35);
+}
+.ctrl-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255,214,0,0.45);
+}
+
+.ctrl-secondary {
+  background: transparent;
+  color: var(--blanco);
+  border: 2px solid rgba(255,255,255,0.22);
+}
+.ctrl-secondary:hover {
+  border-color: var(--amarillo);
+  color: var(--amarillo);
+  transform: translateY(-2px);
+}
+
+/* ── MODAL VICTORIA ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,31,78,0.85);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-box {
+  background: linear-gradient(135deg, #0f2560, #1a3a8f);
+  border: 2px solid rgba(255,214,0,0.35);
+  border-radius: 28px;
+  padding: 40px 36px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  animation: modalPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.modal-confetti {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #FFD600, #70f107, #4AE8C4, #E84A7F, #FFD600);
+  border-radius: 28px 28px 0 0;
+  background-size: 200% 100%;
+  animation: confettiSlide 2s linear infinite;
+}
+
+@keyframes confettiSlide {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+.modal-titulo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.2rem;
+  color: var(--amarillo);
+  margin-bottom: 8px;
+}
+
+.modal-subtitulo {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.65);
+  font-weight: 600;
+  margin-bottom: 28px;
+}
+
+.modal-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.mstat { text-align: center; }
+
+.mstat-val {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.8rem;
+  color: var(--amarillo);
+}
+
+.mstat-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-botones {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .personajes-zona {
+    grid-template-columns: 120px 1fr 120px;
+    gap: 10px;
+  }
+  .placeholder-marco { width: 100px; height: 140px; }
+  .tablero { grid-template-columns: repeat(4, 1fr); gap: 7px; }
+}
+
+@media (max-width: 650px) {
+  .personajes-zona {
+    grid-template-columns: 1fr;
+  }
+  .personaje { display: none; } /* ocultar personajes en movil muy pequeno */
+  .tablero { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 420px) {
+  .tablero { grid-template-columns: repeat(3, 1fr); gap: 5px; }
+  .juego-stats { padding: 10px 16px; gap: 14px; }
+}
