@@ -1,0 +1,450 @@
+/* ============================================================
+   MateMagia — compite.css
+   Ruleta matematica con personajes animados
+   © Proyecto Exclusivo
+   ============================================================ */
+
+.compite-main {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  padding-top: calc(var(--nav-h) + 32px);
+  padding-bottom: 60px;
+  padding-left: 16px;
+  padding-right: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.compite-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.btn-back {
+  display: inline-block;
+  color: var(--amarillo);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  margin-bottom: 14px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.btn-back::before { content: '< '; }
+.btn-back:hover   { opacity: 1; }
+
+.compite-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--blanco);
+  margin-bottom: 8px;
+}
+
+.highlight { color: var(--amarillo); }
+
+.compite-desc {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 600;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ── LAYOUT 3 COLUMNAS ── */
+.compite-layout {
+  display: grid;
+  grid-template-columns: 150px 1fr 150px;
+  gap: 16px;
+  align-items: start;
+}
+
+/* ══════════════════════════════════════
+   PERSONAJES CON ANIMACION
+══════════════════════════════════════ */
+.compite-personaje {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  position: sticky;
+  top: calc(var(--nav-h) + 16px);
+}
+
+/* Imagen real — cuando la agregues */
+.compite-img {
+  width: 130px;
+  height: 200px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
+  animation: compiteFlota 3s ease-in-out infinite;
+}
+.compite-personaje-izq .compite-img { animation-delay: 0s; }
+.compite-personaje-der .compite-img { animation-delay: 1.5s; }
+
+@keyframes compiteFlota {
+  0%,100% { transform: translateY(0) rotate(-3deg) scale(1); }
+  50%      { transform: translateY(-14px) rotate(3deg) scale(1.03); }
+}
+
+/* ── PLACEHOLDER ANIMADO (hasta que agregues la imagen) ── */
+.personaje-placeholder-compite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.placeholder-efecto {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Anillos giratorios */
+.placeholder-anillo {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2.5px dashed rgba(255,214,0,0.3);
+  animation: anilloGira 4s linear infinite;
+}
+
+.anillo-2 {
+  inset: 14px;
+  border-color: rgba(44,95,212,0.4);
+  animation-direction: reverse;
+  animation-duration: 3s;
+}
+
+@keyframes anilloGira {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.placeholder-centro {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255,214,0,0.08);
+  border: 2px solid rgba(255,214,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: centroPulsa 2s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes centroPulsa {
+  0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,214,0,0.15); }
+  50%      { transform: scale(1.08); box-shadow: 0 0 20px 8px rgba(255,214,0,0.1); }
+}
+
+.placeholder-signo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.8rem;
+  color: rgba(255,214,0,0.4);
+}
+
+.placeholder-instruccion {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.28);
+  text-align: center;
+  line-height: 1.5;
+}
+.placeholder-instruccion small {
+  display: block;
+  color: rgba(255,214,0,0.35);
+  font-size: 0.58rem;
+  margin-top: 3px;
+  word-break: break-all;
+}
+
+/* Burbuja de dialogo */
+.compite-burbuja {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.75rem;
+  background: var(--blanco);
+  color: var(--azul);
+  padding: 8px 12px;
+  border-radius: 12px 12px 12px 4px;
+  max-width: 130px;
+  text-align: center;
+  line-height: 1.4;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.compite-burbuja::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 16px;
+  border: 7px solid transparent;
+  border-top-color: var(--blanco);
+  border-bottom: none;
+}
+
+.compite-burbuja-der { border-radius: 12px 12px 4px 12px; }
+.compite-burbuja-der::before {
+  left: auto;
+  right: 16px;
+}
+
+.compite-burbuja.emocion {
+  background: var(--amarillo);
+  color: var(--azul);
+  transform: scale(1.08);
+}
+.compite-burbuja.emocion::before { border-top-color: var(--amarillo); }
+
+/* ══════════════════════════════════════
+   ZONA CENTRAL
+══════════════════════════════════════ */
+.compite-centro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* SELECTOR NIVEL */
+.nivel-selector-compite {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nivel-btn-c {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.82rem;
+  padding: 7px 18px;
+  border-radius: 40px;
+  border: 2px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.6);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+.nivel-btn-c:hover { border-color: var(--amarillo); color: var(--amarillo); }
+.nivel-btn-c.activo {
+  background: var(--amarillo);
+  border-color: var(--amarillo);
+  color: var(--azul);
+  box-shadow: 0 4px 14px rgba(255,214,0,0.3);
+}
+
+/* ── RULETA ── */
+.ruleta-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.ruleta-flecha {
+  font-size: 1.8rem;
+  color: var(--amarillo);
+  filter: drop-shadow(0 4px 8px rgba(255,214,0,0.5));
+  animation: flechaPulsa 1.2s ease-in-out infinite;
+  line-height: 1;
+}
+
+@keyframes flechaPulsa {
+  0%,100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(4px) scale(1.1); }
+}
+
+.ruleta-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  filter: drop-shadow(0 8px 32px rgba(0,0,0,0.5));
+}
+
+#ruletaCanvas {
+  border-radius: 50%;
+  display: block;
+}
+
+.btn-girar {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1rem;
+  padding: 14px 40px;
+  border-radius: 40px;
+  border: none;
+  background: var(--amarillo);
+  color: var(--azul);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+  box-shadow: 0 6px 24px rgba(255,214,0,0.4);
+}
+.btn-girar:hover { transform: translateY(-4px) scale(1.04); box-shadow: 0 12px 28px rgba(255,214,0,0.5); }
+.btn-girar:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* ── EJERCICIO ── */
+.ejercicio-zona {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ejercicio-pregunta {
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 20px 28px;
+  text-align: center;
+  width: 100%;
+}
+
+.ejercicio-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.ejercicio-operacion {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  color: var(--amarillo);
+  text-shadow: 0 0 24px rgba(255,214,0,0.3);
+}
+
+/* ── TARJETA DE RESULTADO ── */
+.resultado-zona { width: 100%; display: flex; justify-content: center; }
+
+.resultado-tarjeta {
+  width: 220px;
+  height: 130px;
+  position: relative;
+  perspective: 800px;
+  cursor: pointer;
+}
+
+.tarjeta-frente,
+.tarjeta-reverso {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  backface-visibility: hidden;
+  transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tarjeta-frente {
+  background: linear-gradient(135deg, #1a3a8f, #0f2560);
+  border: 2px solid rgba(255,214,0,0.25);
+  transform: rotateY(0deg);
+}
+
+.tarjeta-reverso {
+  background: linear-gradient(135deg, #0a4a1a, #0f6020);
+  border: 2px solid #70f107;
+  transform: rotateY(180deg);
+  box-shadow: 0 0 24px rgba(112,241,7,0.3);
+}
+
+.resultado-tarjeta.revelada .tarjeta-frente { transform: rotateY(-180deg); }
+.resultado-tarjeta.revelada .tarjeta-reverso { transform: rotateY(0deg); }
+
+.tarjeta-icono {
+  font-size: 1.8rem;
+  opacity: 0.6;
+}
+
+.btn-revelar {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.9rem;
+  padding: 8px 20px;
+  border-radius: 40px;
+  border: 2px solid rgba(255,214,0,0.4);
+  color: var(--amarillo);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-revelar:hover {
+  background: rgba(255,214,0,0.12);
+  border-color: var(--amarillo);
+}
+
+.reverso-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 900;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.reverso-numero {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.6rem;
+  color: #70f107;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(112,241,7,0.5);
+}
+
+.reverso-operacion {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+}
+
+.btn-otro {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.9rem;
+  padding: 10px 28px;
+  border-radius: 40px;
+  border: 2px solid rgba(255,255,255,0.2);
+  color: var(--blanco);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-otro:hover { border-color: var(--amarillo); color: var(--amarillo); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  .compite-layout { grid-template-columns: 100px 1fr 100px; gap: 8px; }
+  .ruleta-container { width: 240px; height: 240px; }
+  #ruletaCanvas { width: 240px; height: 240px; }
+  .placeholder-efecto { width: 90px; height: 90px; }
+  .placeholder-centro { width: 56px; height: 56px; }
+}
+
+@media (max-width: 600px) {
+  .compite-layout { grid-template-columns: 1fr; }
+  .compite-personaje { display: none; }
+  .ruleta-container { width: 260px; height: 260px; }
+  #ruletaCanvas { width: 260px; height: 260px; }
+}
